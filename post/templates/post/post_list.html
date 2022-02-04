@@ -2,7 +2,7 @@
 
 <h3><a href="{% url 'blog:create_post' %}">create new post</a></h3>
 <hr>
-{% for post in all_post %}
+{% for post in object_list %}
 
   <h3><a href="{% url 'blog:post_detail' post.id %}">{{post}}</a></h3>
 

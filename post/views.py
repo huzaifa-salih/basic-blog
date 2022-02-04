@@ -1,7 +1,10 @@
-from turtle import pos
+# from turtle import pos
+from dataclasses import field
 from django.shortcuts import render
 from post.models import Post
 from post.forms import PostForm
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 
 def post_list(request):
@@ -46,3 +49,25 @@ def post_edit(request, id):
         # "post": post,
     }
     return render(request, "post_edit.html", context)
+
+
+class PostList(ListView):
+    model = Post
+
+
+class PostDetail(DetailView):
+    model = Post
+
+
+class PostUpdate(UpdateView):
+    model = Post
+    fields = ["title", "content", "created_at"]
+    template_name = "post_edit.html"
+    success_url = "/blog/cbv"
+
+
+class PostCreate(CreateView):
+    model = Post
+    fields = ["title", "content", "created_at", "puplished_at", "email", "views_count"]
+    template_name = "create_post.html"
+    success_url = "/blog/cbv"
